@@ -3,6 +3,7 @@ package com.sebelino.app;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.MultiMap;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 
 public class MainVerticle extends AbstractVerticle {
@@ -11,7 +12,9 @@ public class MainVerticle extends AbstractVerticle {
     public void start() {
         Router router = Router.router(vertx);
 
-        router.route().handler(context -> {
+        Route route = router.route("/status");
+
+        route.handler(context -> {
             String address = context.request().connection().remoteAddress().toString();
             MultiMap queryParams = context.queryParams();
             String name = queryParams.contains("name") ? queryParams.get("name") : "unknown";
