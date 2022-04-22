@@ -1,7 +1,16 @@
 package com.sebelino.app;
 
-public class Poller {
-    public static void main(String[] args) {
-        System.out.println("hoy");
+import io.vertx.core.AbstractVerticle;
+
+public class Poller extends AbstractVerticle {
+    @Override
+    public void start() {
+        vertx.createHttpServer().requestHandler(
+                req -> {
+                    req.response()
+                            .putHeader("content-type", "text/plain")
+                            .end("Hello from vert.x!");
+                }
+        ).listen(8080);
     }
 }
