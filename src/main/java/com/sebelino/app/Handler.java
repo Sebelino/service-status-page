@@ -34,6 +34,12 @@ public class Handler {
             return;
         }
         System.out.printf("Service: %s %s%n", service.name, service.url);
-        context.response().setStatusCode(201).end();
+        repository.insertService(service)
+                .onSuccess(
+                        rows -> context.response().setStatusCode(201).end()
+                )
+                .onFailure(
+                        throwable -> context.fail(500, throwable)
+                );
     }
 }

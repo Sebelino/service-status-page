@@ -6,6 +6,8 @@ import io.vertx.mysqlclient.MySQLConnectOptions;
 import io.vertx.mysqlclient.MySQLPool;
 import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowSet;
+import io.vertx.sqlclient.Tuple;
 
 import java.util.List;
 import java.util.function.Function;
@@ -41,5 +43,10 @@ public class Repository {
                         .map(mapper)
                         .collect(Collectors.toList())
                 );
+    }
+
+    public Future<RowSet<Row>> insertService(Service service) {
+        return pool.preparedQuery("INSERT INTO services(name, url) VALUES (?, ?)")
+                .execute(Tuple.of(service.name, service.url));
     }
 }
