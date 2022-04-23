@@ -31,8 +31,8 @@ public class Repository {
 
     private static final Function<Row, Service> mapper = row -> {
         Service service = new Service();
-        service.name = "Facebook";
-        service.url = "https://facebook.com";
+        service.name = row.getString("name");
+        service.url = row.getString("url");
         return service;
     };
 
