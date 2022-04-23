@@ -29,8 +29,10 @@ application {
 
 dependencies {
     implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
-    implementation("io.vertx:vertx-web")
+    implementation("io.vertx:vertx-web:4.2.6")
+    implementation("io.vertx:vertx-web-client:4.2.6")
     implementation("io.vertx:vertx-codegen:4.2.6")
+    implementation("org.assertj:assertj-core:3.22.0")
     testImplementation("io.vertx:vertx-junit5:4.2.6")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
