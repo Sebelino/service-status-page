@@ -15,7 +15,7 @@ public class Handler {
 
     public void get(RoutingContext context) {
         repository.findAll().onSuccess(
-                services -> context.response().end(Json.encode(Status.of(services)))
+                services -> context.response().end(Json.encodePrettily(Status.of(services)))
         ).onFailure(
                 throwable -> context.fail(500, throwable)
         );
