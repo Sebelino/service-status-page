@@ -25,16 +25,23 @@ export default class ServiceList extends Component {
                 ServiceList
             </h3>
 
-            <div>{this.state.services.map(item => {
-                return (<div>{item.name}</div>)
-            })}</div>
+            {this.state.services.length === 0 ? '' : <ul className="list-group my-5">
+                {this.state.services.map(item => {
+                    return (<ServiceItem
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        url={item.url}
+                    />)
+                })}
+            </ul>}
 
             {items.length === 0 ? '' : <ul className="list-group my-5">
                 {items.map(item => {
                     return (<ServiceItem
                         key={item.id}
                         id={item.id}
-                        title={item.title}
+                        name={item.title}
                         completed={item.completed}
                         handleDelete={() => handleDelete(item.id)}
                         handleEdit={() => handleEdit(item.id)}
