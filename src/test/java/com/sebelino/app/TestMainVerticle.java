@@ -21,7 +21,7 @@ public class TestMainVerticle {
     void http_server_check_response(Vertx vertx, VertxTestContext testContext) {
         WebClient webClient = WebClient.create(vertx);
         vertx.deployVerticle(new MainVerticle(), testContext.succeeding(id -> {
-            webClient.get(8888, "localhost", "/status").as(BodyCodec.string()).send(testContext.succeeding(resp -> {
+            webClient.get(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).send(testContext.succeeding(resp -> {
                 testContext.verify(() -> {
                     assertThat(resp.statusCode()).isEqualTo(200);
                     testContext.completeNow();

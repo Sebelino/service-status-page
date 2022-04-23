@@ -8,13 +8,15 @@ import io.vertx.ext.web.Router;
 
 public class MainVerticle extends AbstractVerticle {
 
+    public static int PORT = 8888;
+
     @Override
     public void start() {
         Router router = Router.router(vertx);
 
         router.get("/status").respond(context -> Future.succeededFuture(dummyServicesPayload()));
 
-        vertx.createHttpServer().requestHandler(router).listen(8888).onSuccess(server -> System.out.println("HTTP server started on port " + server.actualPort()));
+        vertx.createHttpServer().requestHandler(router).listen(PORT).onSuccess(server -> System.out.println("HTTP server started on port " + server.actualPort()));
     }
 
     private static JsonObject dummyServicesPayload() {
