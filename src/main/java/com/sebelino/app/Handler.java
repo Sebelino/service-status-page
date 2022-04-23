@@ -1,20 +1,21 @@
 package com.sebelino.app;
 
-import io.vertx.core.json.JsonArray;
-import io.vertx.core.json.JsonObject;
+import io.vertx.core.json.Json;
+import io.vertx.ext.web.RoutingContext;
 
 public class Handler {
 
-    public JsonObject get() {
-        return dummyServicesPayload();
+    Repository repository;
+
+    public Handler(Repository repository) {
+        this.repository = repository;
     }
 
-    private JsonObject dummyServicesPayload() {
-        JsonObject service = new JsonObject();
-        service.put("name", "Facebook");
-        service.put("url", "https://facebook.com");
-        JsonArray services = new JsonArray().add(service);
-        JsonObject status = new JsonObject().put("services", services);
-        return status;
+    public void get(RoutingContext context) {
+        repository.findAll().onSuccess(
+                data -> context.response().end(Json.encode(data))
+        ).onFailure(
+                throwable -> context.fail(500, throwable)
+        );
     }
 }
