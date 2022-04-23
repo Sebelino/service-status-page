@@ -26,7 +26,14 @@ public class Handler {
         if (StringUtils.isEmpty(service.name)) {
             JsonObject payload = new JsonObject().put("error", "Missing field: name");
             context.response().setStatusCode(400).end(Json.encode(payload));
+            return;
+        }
+        if (StringUtils.isEmpty(service.url)) {
+            JsonObject payload = new JsonObject().put("error", "Missing field: url");
+            context.response().setStatusCode(400).end(Json.encode(payload));
+            return;
         }
         System.out.printf("Service: %s %s%n", service.name, service.url);
+        context.response().setStatusCode(201).end();
     }
 }
