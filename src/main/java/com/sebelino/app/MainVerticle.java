@@ -1,7 +1,7 @@
 package com.sebelino.app;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.MultiMap;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
@@ -15,11 +15,12 @@ public class MainVerticle extends AbstractVerticle {
         Route route = router.route("/status");
 
         route.handler(context -> {
-            String address = context.request().connection().remoteAddress().toString();
-            MultiMap queryParams = context.queryParams();
-            String name = queryParams.contains("name") ? queryParams.get("name") : "unknown";
-            JsonObject json = new JsonObject().put("name", name).put("address", address).put("message", "Hello " + name + " connected from " + address);
-            context.json(json);
+            JsonObject service = new JsonObject();
+            service.put("name", "Facebook");
+            service.put("url", "https://facebook.com");
+            JsonArray services = new JsonArray().add(service);
+            JsonObject status = new JsonObject().put("services", services);
+            context.json(status);
         });
 
         vertx.createHttpServer().requestHandler(router).listen(8888).onSuccess(server -> System.out.println("HTTP server started on port " + server.actualPort()));
