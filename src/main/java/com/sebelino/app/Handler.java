@@ -5,7 +5,11 @@ import io.vertx.core.json.JsonObject;
 
 public class Handler {
 
-    public JsonObject dummyServicesPayload() {
+    public JsonObject get() {
+        return dummyServicesPayload();
+    }
+
+    private JsonObject dummyServicesPayload() {
         JsonObject service = new JsonObject();
         service.put("name", "Facebook");
         service.put("url", "https://facebook.com");
