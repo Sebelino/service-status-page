@@ -21,7 +21,7 @@ public class TestMainVerticle {
     @Test
     @DisplayName("GET /status yields HTTP 200")
     @Timeout(value = 9, timeUnit = TimeUnit.SECONDS)
-    void get_and_check_status_code(Vertx vertx, VertxTestContext testContext) {
+    void getAndCheckStatusCode(Vertx vertx, VertxTestContext testContext) {
         WebClient webClient = WebClient.create(vertx);
         vertx.deployVerticle(new MainVerticle(), testContext.succeeding(id -> {
             webClient.get(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).send(testContext.succeeding(resp -> {
@@ -36,7 +36,7 @@ public class TestMainVerticle {
     @Test
     @DisplayName("POST /status with required fields yields HTTP 201")
     @Timeout(value = 9, timeUnit = TimeUnit.SECONDS)
-    void post_and_check_status_code(Vertx vertx, VertxTestContext testContext) {
+    void postAndCheckStatusCode(Vertx vertx, VertxTestContext testContext) {
         JsonObject payload = new JsonObject().put("name", "Google").put("url", "https://google.com");
         WebClient webClient = WebClient.create(vertx);
         vertx.deployVerticle(new MainVerticle(), testContext.succeeding(id -> {
