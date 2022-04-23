@@ -14,7 +14,7 @@ repositories {
     mavenCentral()
 }
 
-val vertxVersion = "4.2.7"
+val vertxVersion = "4.2.6"
 val junitJupiterVersion = "5.8.2"
 
 val mainVerticleName = "com.sebelino.app.MainVerticle"
