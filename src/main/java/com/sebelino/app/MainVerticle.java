@@ -2,6 +2,7 @@ package com.sebelino.app;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -17,6 +18,7 @@ public class MainVerticle extends AbstractVerticle {
         Handler handler = new Handler(repository);
 
         router.get("/status").handler(handler::get);
+        router.post("/status").handler(BodyHandler.create()).handler(handler::post);
 
         vertx.createHttpServer().requestHandler(router).listen(PORT).onSuccess(server -> System.out.println("HTTP server started on port " + server.actualPort()));
     }
