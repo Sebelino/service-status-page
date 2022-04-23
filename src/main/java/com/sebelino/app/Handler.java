@@ -22,6 +22,12 @@ public class Handler {
     }
 
     public void post(RoutingContext context) {
+        JsonObject body = context.getBodyAsJson();
+        if (body == null) {
+            JsonObject payload = new JsonObject().put("error", "Missing JSON body");
+            context.response().setStatusCode(400).end(Json.encode(payload));
+            return;
+        }
         Service service = context.getBodyAsJson().mapTo(Service.class);
         if (StringUtils.isEmpty(service.name)) {
             JsonObject payload = new JsonObject().put("error", "Missing field: name");
