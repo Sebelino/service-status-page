@@ -23,3 +23,9 @@ Inspect the database:
 ```bash
 mysql -h 127.0.0.1 -P 3309 -psecret -u dev dev
 ```
+
+Run tests:
+
+```bash
+./gradlew test
+```
