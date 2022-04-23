@@ -14,8 +14,16 @@ Run the application:
 ./gradlew run
 ```
 
+Get the status of all services:
+
 ```bash
 curl "localhost:8888/status"
+```
+
+Add a new service:
+
+```bash
+curl "localhost:8888/status" -d '{"name": "Twitter", "url":"https://twitter.com"}'
 ```
 
 Inspect the database:
