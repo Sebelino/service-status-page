@@ -40,13 +40,12 @@ public class TestMainVerticle {
         JsonObject payload = new JsonObject().put("name", "Google").put("url", "https://google.com");
         WebClient webClient = WebClient.create(vertx);
         vertx.deployVerticle(new MainVerticle(), testContext.succeeding(id -> {
-            webClient.post(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string())
-                    .sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
-                        testContext.verify(() -> {
-                            assertThat(resp.statusCode()).isEqualTo(201);
-                            testContext.completeNow();
-                        });
-                    }));
+            webClient.post(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
+                testContext.verify(() -> {
+                    assertThat(resp.statusCode()).isEqualTo(201);
+                    testContext.completeNow();
+                });
+            }));
         }));
     }
 }
