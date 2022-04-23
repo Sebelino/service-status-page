@@ -12,7 +12,7 @@ public class MainVerticle extends AbstractVerticle {
     public void start() {
         Router router = Router.router(vertx);
 
-        Route route = router.route("/status");
+        Route route = router.get("/status");
 
         route.handler(context -> {
             JsonObject service = new JsonObject();
