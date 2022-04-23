@@ -33,6 +33,7 @@ public class Repository {
         Service service = new Service();
         service.name = row.getString("name");
         service.url = row.getString("url");
+        service.createdAt = row.getLocalDateTime("created_at");
         return service;
     };
 

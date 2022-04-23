@@ -1,6 +1,9 @@
 package com.sebelino.app;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 
@@ -10,6 +13,8 @@ public class MainVerticle extends AbstractVerticle {
 
     @Override
     public void start() {
+        ObjectMapper mapper = DatabindCodec.mapper();
+        mapper.registerModule(new JavaTimeModule());
 
         Router router = Router.router(vertx);
 
