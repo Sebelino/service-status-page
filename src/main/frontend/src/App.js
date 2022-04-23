@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {v1 as uuid} from 'uuid'
 import ServiceList from "./components/ServiceList";
 import ServiceInput from "./components/ServiceInput";
-import Greeter from "./components/Greeter";
 
 class App extends Component {
     constructor(props) {
@@ -113,7 +112,6 @@ class App extends Component {
                     />
                 </div>
             </div>
-            <Greeter/>
         </div>);
     }
 }

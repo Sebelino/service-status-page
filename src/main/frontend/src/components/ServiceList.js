@@ -2,6 +2,19 @@ import React, {Component, Fragment} from 'react'
 import ServiceItem from './ServiceItem'
 
 export default class ServiceList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: "Default message"
+        }
+    }
+
+    componentDidMount() {
+        fetch("/status")
+            .then(response => response.text())
+            .then(text => this.setState({message: text}));
+    }
+
     render() {
         const {
             items, updateTodosToShow, clearList, handleDelete, handleEdit, handleDoneTask, handleDeleteDoneTasks
@@ -11,6 +24,8 @@ export default class ServiceList extends Component {
             <h3 className="text-center">
                 ServiceList
             </h3>
+
+            <div>{this.state.message}</div>
 
             <div className="row">
                 <div className="col-md-4">
