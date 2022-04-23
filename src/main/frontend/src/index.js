@@ -1,31 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Greeter extends React.Component { // (1)
+class Greeter extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { // (2)
-      message: "Default message"
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: "Default message"
+        }
     }
-  }
 
-  componentDidMount() { // (5)
-    fetch("/status")
-      .then(response => response.text())
-      .then(text => this.setState({message: text}));
-  }
+    componentDidMount() {
+        fetch("/status")
+            .then(response => response.text())
+            .then(text => this.setState({message: text}));
+    }
 
-  render() { // (3)
-    return (
-      <div>
-        <span>{this.state.message}</span>
-      </div>
-    );
-  }
+    render() {
+        return (<div>
+            <span>{this.state.message}</span>
+        </div>);
+    }
 }
 
-ReactDOM.render( // (4)
-  <Greeter/>,
-  document.getElementById('root')
-);
+ReactDOM.render(<Greeter/>, document.getElementById('root'));
