@@ -14,15 +14,17 @@ public class MainVerticle extends AbstractVerticle {
 
         Route route = router.get("/status");
 
-        route.handler(context -> {
-            JsonObject service = new JsonObject();
-            service.put("name", "Facebook");
-            service.put("url", "https://facebook.com");
-            JsonArray services = new JsonArray().add(service);
-            JsonObject status = new JsonObject().put("services", services);
-            context.json(status);
-        });
+        route.handler(context -> context.json(dummyServicesPayload()));
 
         vertx.createHttpServer().requestHandler(router).listen(8888).onSuccess(server -> System.out.println("HTTP server started on port " + server.actualPort()));
+    }
+
+    private static JsonObject dummyServicesPayload() {
+        JsonObject service = new JsonObject();
+        service.put("name", "Facebook");
+        service.put("url", "https://facebook.com");
+        JsonArray services = new JsonArray().add(service);
+        JsonObject status = new JsonObject().put("services", services);
+        return status;
     }
 }
