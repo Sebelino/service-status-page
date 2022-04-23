@@ -15,7 +15,7 @@ repositories {
 }
 
 val vertxVersion = "4.2.7"
-val junitJupiterVersion = "5.7.0"
+val junitJupiterVersion = "5.8.2"
 
 val mainVerticleName = "com.sebelino.app.MainVerticle"
 val launcherClassName = "io.vertx.core.Launcher"
