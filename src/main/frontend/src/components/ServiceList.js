@@ -5,14 +5,14 @@ export default class ServiceList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: "Default message"
+            message: []
         }
     }
 
     componentDidMount() {
         fetch("/status")
-            .then(response => response.text())
-            .then(text => this.setState({message: text}));
+            .then(response => response.json())
+            .then(payload => this.setState({message: payload.services}));
     }
 
     render() {
@@ -25,7 +25,9 @@ export default class ServiceList extends Component {
                 ServiceList
             </h3>
 
-            <div>{this.state.message}</div>
+            <div>{this.state.message.map(item => {
+                return (<div>{item.name}</div>)
+            })}</div>
 
             <div className="row">
                 <div className="col-md-4">
