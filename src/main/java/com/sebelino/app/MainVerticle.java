@@ -14,17 +14,10 @@ public class MainVerticle extends AbstractVerticle {
     public void start() {
         Router router = Router.router(vertx);
 
-        router.get("/status").respond(context -> Future.succeededFuture(dummyServicesPayload()));
+        Handler handler = new Handler();
+
+        router.get("/status").respond(context -> Future.succeededFuture(handler.dummyServicesPayload()));
 
         vertx.createHttpServer().requestHandler(router).listen(PORT).onSuccess(server -> System.out.println("HTTP server started on port " + server.actualPort()));
-    }
-
-    private static JsonObject dummyServicesPayload() {
-        JsonObject service = new JsonObject();
-        service.put("name", "Facebook");
-        service.put("url", "https://facebook.com");
-        JsonArray services = new JsonArray().add(service);
-        JsonObject status = new JsonObject().put("services", services);
-        return status;
     }
 }
