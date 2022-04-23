@@ -29,36 +29,6 @@ export default class ServiceList extends Component {
                 return (<div>{item.name}</div>)
             })}</div>
 
-            <div className="row">
-                <div className="col-md-4">
-                    <button
-                        type="button"
-                        className="btn btn-info btn-block mt-1"
-                        onClick={() => updateTodosToShow("all")}
-                    >
-                        All
-                    </button>
-                </div>
-                <div className="col-md-4">
-                    <button
-                        type="button"
-                        className="btn btn-info btn-block mt-1"
-                        onClick={() => updateTodosToShow("done")}
-                    >
-                        Done
-                    </button>
-                </div>
-                <div className="col-md-4">
-                    <button
-                        type="button"
-                        className="btn btn-info btn-block mt-1"
-                        onClick={() => updateTodosToShow("todo")}
-                    >
-                        Todo
-                    </button>
-                </div>
-            </div>
-
             {items.length === 0 ? '' : <ul className="list-group my-5">
                 {items.map(item => {
                     return (<ServiceItem
