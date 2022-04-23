@@ -13,8 +13,10 @@ public class MainVerticle extends AbstractVerticle {
 
     @Override
     public void start() {
-        ObjectMapper mapper = DatabindCodec.prettyMapper();
+        ObjectMapper mapper = DatabindCodec.mapper();
         mapper.registerModule(new JavaTimeModule());
+        ObjectMapper prettyMapper = DatabindCodec.prettyMapper();
+        prettyMapper.registerModule(new JavaTimeModule());
 
         Router router = Router.router(vertx);
 
