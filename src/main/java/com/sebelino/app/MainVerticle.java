@@ -29,5 +29,7 @@ public class MainVerticle extends AbstractVerticle {
         router.post("/status").handler(BodyHandler.create()).handler(handler::post);
 
         vertx.createHttpServer().requestHandler(router).listen(PORT).onSuccess(server -> System.out.println("HTTP server started on port " + server.actualPort()));
+
+        vertx.deployVerticle(new PollerVerticle());
     }
 }
