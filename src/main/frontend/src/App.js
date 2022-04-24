@@ -28,9 +28,11 @@ class App extends Component {
     handleSubmit = event => {
         event.preventDefault()
 
+        const randomId = uuid()
+
         const addedService = {
-            name: 'HELLO',
-            url: uuid()
+            name: randomId,
+            url: "https://" + randomId + ".com"
         }
 
         const updatedServices = [...this.state.services, addedService]
