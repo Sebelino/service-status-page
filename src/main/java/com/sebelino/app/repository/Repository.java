@@ -1,5 +1,6 @@
-package com.sebelino.app;
+package com.sebelino.app.repository;
 
+import com.sebelino.app.Service;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.sqlclient.Row;

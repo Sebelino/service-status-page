@@ -2,6 +2,7 @@ package com.sebelino.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sebelino.app.repository.Repository;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.web.Router;

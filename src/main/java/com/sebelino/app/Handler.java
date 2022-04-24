@@ -1,5 +1,6 @@
 package com.sebelino.app;
 
+import com.sebelino.app.repository.Repository;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
