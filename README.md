@@ -7,6 +7,11 @@ New services can be added either through the frontend app or by making a POST ca
 ![image](https://user-images.githubusercontent.com/837775/164977776-c19f6e8b-9ee9-4c18-bf19-cb9265f3229f.png)
 
 ## Usage
+Clone the repository:
+```bash
+git clone https://github.com/Sebelino/service-status-page
+cd service-status-page/
+```
 
 Run the MySQL database:
 
