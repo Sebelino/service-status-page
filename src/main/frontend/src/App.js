@@ -7,9 +7,16 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: [], itemsToShow: "all", id: uuid(), item: '',
+            items: [], itemsToShow: "all", id: uuid(), item: '', services: [],
         }
     }
+
+    componentDidMount() {
+        fetch("/status")
+            .then(response => response.json())
+            .then(payload => this.setState({services: payload.services}));
+    }
+
 
     handleChange = event => {
         this.setState({
@@ -91,6 +98,7 @@ class App extends Component {
                         handleSubmit={this.handleSubmit}
                     />
                     <ServiceList
+                        services={this.state.services}
                         items={items}
                         filterDoneTasks={this.filterDoneTasks}
                         clearList={this.clearList}
