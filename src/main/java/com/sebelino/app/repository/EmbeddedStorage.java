@@ -3,7 +3,7 @@ package com.sebelino.app.repository;
 import java.util.HashMap;
 import java.util.Map;
 
-class EmbeddedCache {
+class EmbeddedStorage {
     private final Map<String, String> urlToStatus = new HashMap<>();
 
     public void put(String url, String status) {
