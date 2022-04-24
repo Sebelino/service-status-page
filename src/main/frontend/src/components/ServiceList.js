@@ -11,12 +11,12 @@ export default class ServiceList extends Component {
             </h4>
 
             {services.length === 0 ? '' : <ul className="list-group my-5">
-                {services.map(item => {
+                {services.map(service => {
                     return (<ServiceItem
-                        key={item.url}
-                        id={item.url}
-                        name={item.name}
-                        url={item.url}
+                        key={service.url}
+                        id={service.url}
+                        name={service.name}
+                        url={service.url}
                     />)
                 })}
             </ul>}
