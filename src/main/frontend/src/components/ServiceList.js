@@ -18,6 +18,7 @@ export default class ServiceList extends Component {
                         name={service.name}
                         url={service.url}
                         createdAt={service.createdAt}
+                        status={service.status}
                     />)
                 })}
             </ul>}
