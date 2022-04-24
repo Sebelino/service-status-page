@@ -22,9 +22,7 @@ class App extends Component {
     componentDidMount() {
         console.log("componentDidMount")
         this.interval = setInterval(this.tick, this.state.delay)
-        fetch("/status")
-            .then(response => response.json())
-            .then(payload => this.setState({services: payload.services}));
+        this.refreshServices()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -40,13 +38,17 @@ class App extends Component {
         clearInterval(this.interval)
     }
 
+    refreshServices() {
+        fetch("/status")
+            .then(response => response.json())
+            .then(payload => this.setState({services: payload.services}));
+    }
+
     tick = () => {
         this.setState({
             pollingCount: this.state.pollingCount + 1
         })
-        fetch("/status")
-            .then(response => response.json())
-            .then(payload => this.setState({services: payload.services}));
+        this.refreshServices()
     }
 
     handleServiceNameChange = event => {
