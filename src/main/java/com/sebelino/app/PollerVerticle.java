@@ -1,6 +1,7 @@
 package com.sebelino.app;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.shareddata.LocalMap;
 import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.web.client.WebClient;
@@ -28,7 +29,7 @@ public class PollerVerticle extends AbstractVerticle {
 
     private void pollService(String url, LocalMap<String, String> serviceStatuses) {
         System.out.println("Polling url: " + url);
-        client.get(80, url, "/")
+        client.requestAbs(HttpMethod.GET, url)
                 .as(BodyCodec.string()).send(response -> {
                     if (response.succeeded()) {
                         System.out.println("Website is up");
