@@ -29,7 +29,8 @@ class App extends Component {
         event.preventDefault()
 
         const addedService = {
-            name: 'HELLO'
+            name: 'HELLO',
+            url: uuid()
         }
 
         const updatedServices = [...this.state.services, addedService]
