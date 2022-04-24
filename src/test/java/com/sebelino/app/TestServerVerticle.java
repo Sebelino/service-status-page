@@ -17,15 +17,15 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(VertxExtension.class)
-public class TestMainVerticle {
+public class TestServerVerticle {
 
     @Test
     @DisplayName("GET /status yields HTTP 200")
     @Timeout(value = 9, timeUnit = TimeUnit.SECONDS)
     void getAndCheckStatusCode(Vertx vertx, VertxTestContext testContext) {
         WebClient webClient = WebClient.create(vertx);
-        vertx.deployVerticle(new MainVerticle(), testContext.succeeding(id -> {
-            webClient.get(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).send(testContext.succeeding(resp -> {
+        vertx.deployVerticle(new ServerVerticle(), testContext.succeeding(id -> {
+            webClient.get(ServerVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).send(testContext.succeeding(resp -> {
                 testContext.verify(() -> {
                     assertThat(resp.statusCode()).isEqualTo(200);
                     testContext.completeNow();
@@ -42,8 +42,8 @@ public class TestMainVerticle {
         String serviceUrl = String.format("https://%s.com", serviceName);
         JsonObject payload = new JsonObject().put("name", serviceName).put("url", serviceUrl);
         WebClient webClient = WebClient.create(vertx);
-        vertx.deployVerticle(new MainVerticle(), testContext.succeeding(id -> {
-            webClient.post(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
+        vertx.deployVerticle(new ServerVerticle(), testContext.succeeding(id -> {
+            webClient.post(ServerVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
                 testContext.verify(() -> {
                     assertThat(resp.statusCode()).isEqualTo(201);
                     testContext.completeNow();
@@ -61,13 +61,13 @@ public class TestMainVerticle {
         JsonObject payload = new JsonObject().put("name", serviceName).put("url", serviceUrl);
         WebClient webClient = WebClient.create(vertx);
         vertx.deployVerticle(new MainVerticle(), testContext.succeeding(id -> {
-            webClient.post(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
+            webClient.post(ServerVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
                 testContext.verify(() -> {
                     assertThat(resp.statusCode()).isEqualTo(201);
                     testContext.completeNow();
                 });
             }));
-            webClient.get(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
+            webClient.get(ServerVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
                 testContext.verify(() -> {
                     assertThat(resp.statusCode()).isEqualTo(200);
                     JsonObject body = new JsonObject(resp.body());
