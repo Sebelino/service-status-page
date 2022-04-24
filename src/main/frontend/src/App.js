@@ -31,14 +31,11 @@ class App extends Component {
         const randomId = uuid()
 
         const addedService = {
-            name: this.state.newServiceName,
-            url: "https://" + randomId + ".com"
+            name: this.state.newServiceName, url: "https://" + randomId + ".com"
         }
 
         const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(addedService)
+            method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(addedService)
         };
         fetch('/status', requestOptions)
             .then(response => console.log("POST /status"));
