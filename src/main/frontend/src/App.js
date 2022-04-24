@@ -7,7 +7,7 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: [], itemsToShow: "all", id: uuid(), item: '', services: [], newService: ''
+            items: [], itemsToShow: "all", id: uuid(), item: '', services: [], newServiceName: ''
         }
     }
 
@@ -21,7 +21,7 @@ class App extends Component {
 
     handleChange = event => {
         this.setState({
-            newService: event.target.value
+            newServiceName: event.target.value
         })
     }
 
@@ -45,9 +45,9 @@ class App extends Component {
 
         const updatedServices = [...this.state.services, addedService]
 
-        if (this.state.newService.length > 0) {
+        if (this.state.newServiceName.length > 0) {
             this.setState({
-                services: updatedServices, id: uuid(), newService: ''
+                services: updatedServices, id: uuid(), newServiceName: ''
             })
         }
     }
@@ -70,7 +70,7 @@ class App extends Component {
                 <div className="col-10 col-md-8 mx-auto mt-4">
                     <h3 className="text-capitalize text-center">Service Status Page</h3>
                     <ServiceInput
-                        item={this.state.newService}
+                        item={this.state.newServiceName}
                         handleChange={this.handleChange}
                         handleSubmit={this.handleSubmit}
                     />
@@ -81,7 +81,7 @@ class App extends Component {
                     />
                 </div>
             </div>
-            <div>newService: [{this.state.newService}]</div>
+            <div>newServiceName: [{this.state.newServiceName}]</div>
         </div>);
     }
 }
