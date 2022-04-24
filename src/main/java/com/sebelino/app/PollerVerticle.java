@@ -28,14 +28,11 @@ public class PollerVerticle extends AbstractVerticle {
     }
 
     private void pollService(String url, LocalMap<String, String> serviceStatuses) {
-        System.out.println("Polling url: " + url);
         client.requestAbs(HttpMethod.GET, url)
                 .as(BodyCodec.string()).send(response -> {
                     if (response.succeeded()) {
-                        System.out.println("Website is up");
                         serviceStatuses.put(url, "OK");
                     } else {
-                        System.out.println("Connection refused");
                         serviceStatuses.put(url, "FAIL");
                     }
                 });
