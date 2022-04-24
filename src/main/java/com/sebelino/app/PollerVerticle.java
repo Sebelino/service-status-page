@@ -1,10 +1,9 @@
 package com.sebelino.app;
 
+import com.sebelino.app.repository.EmbeddedStorage;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.VertxException;
 import io.vertx.core.http.HttpMethod;
-import io.vertx.core.shareddata.LocalMap;
-import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
 
@@ -20,24 +19,21 @@ public class PollerVerticle extends AbstractVerticle {
     }
 
     private void pollAllServices() {
-        SharedData sharedServiceStatuses = vertx.sharedData();
-        LocalMap<String, String> serviceStatuses = sharedServiceStatuses.getLocalMap("service_statuses");
-        System.out.printf("Polling %d services...%n", serviceStatuses.size());
+        EmbeddedStorage embeddedStorage = new EmbeddedStorage(vertx.sharedData());
+        System.out.printf("Polling %d services...%n", embeddedStorage.keySet().size());
 
-        serviceStatuses.keySet().parallelStream().forEach(url -> pollService(url, serviceStatuses));
-
+        embeddedStorage.keySet().parallelStream().forEach(url -> pollService(url, embeddedStorage));
     }
 
-    private void pollService(String url, LocalMap<String, String> serviceStatuses) {
+    private void pollService(String url, EmbeddedStorage serviceStatuses) {
         try {
-            client.requestAbs(HttpMethod.GET, url)
-                    .as(BodyCodec.string()).send(response -> {
-                        if (response.succeeded()) {
-                            serviceStatuses.put(url, "OK");
-                        } else {
-                            serviceStatuses.put(url, "FAIL");
-                        }
-                    });
+            client.requestAbs(HttpMethod.GET, url).as(BodyCodec.string()).send(response -> {
+                if (response.succeeded()) {
+                    serviceStatuses.put(url, "OK");
+                } else {
+                    serviceStatuses.put(url, "FAIL");
+                }
+            });
         } catch (VertxException e) {
             // Likely MalformedUrlException
             serviceStatuses.put(url, "FAIL");

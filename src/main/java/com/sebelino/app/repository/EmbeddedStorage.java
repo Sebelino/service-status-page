@@ -3,7 +3,9 @@ package com.sebelino.app.repository;
 import io.vertx.core.shareddata.LocalMap;
 import io.vertx.core.shareddata.SharedData;
 
-class EmbeddedStorage {
+import java.util.Set;
+
+public class EmbeddedStorage {
 
     private final LocalMap<String, String> map;
 
@@ -21,5 +23,9 @@ class EmbeddedStorage {
 
     public boolean containsKey(String key) {
         return map.containsKey(key);
+    }
+
+    public Set<String> keySet() {
+        return map.keySet();
     }
 }
