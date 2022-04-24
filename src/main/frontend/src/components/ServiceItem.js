@@ -10,7 +10,7 @@ export default class ServiceItem extends Component {
             <h6 className={`mt-1 mb-0 align-middle ${completed ? 'completed-task' : ''}`}>{url}</h6>
             <div className="status-icon">
                     <span>
-                        <i className={`${status === 'OK' ? 'text-success fas fa-check' : (status === 'FAIL' ? 'text-danger fas fa-ban' : 'text-secondary fas fa-question-circle')}`}/>
+                        <i className={`${status === 'OK' ? 'text-success fas fa-check' : (status === 'FAIL' ? 'text-danger fas fa-ban' : 'text-secondary fas fa-spinner')}`}/>
                     </span>
             </div>
         </li>)
