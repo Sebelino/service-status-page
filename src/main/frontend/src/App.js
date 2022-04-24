@@ -36,7 +36,7 @@ class App extends Component {
 
         if (this.state.newService.length > 0) {
             this.setState({
-                services: updatedServices, id: uuid()
+                services: updatedServices, id: uuid(), newService: ''
             })
         }
     }
