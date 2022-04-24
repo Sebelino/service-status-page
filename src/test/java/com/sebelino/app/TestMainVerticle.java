@@ -38,7 +38,9 @@ public class TestMainVerticle {
     @DisplayName("POST /status with required fields yields HTTP 201")
     @Timeout(value = 9, timeUnit = TimeUnit.SECONDS)
     void postAndCheckStatusCode(Vertx vertx, VertxTestContext testContext) {
-        JsonObject payload = new JsonObject().put("name", "Google").put("url", "https://google.com");
+        String serviceName = RandomStringUtils.randomAlphabetic(10);
+        String serviceUrl = String.format("https://%s.com", serviceName);
+        JsonObject payload = new JsonObject().put("name", serviceName).put("url", serviceUrl);
         WebClient webClient = WebClient.create(vertx);
         vertx.deployVerticle(new MainVerticle(), testContext.succeeding(id -> {
             webClient.post(MainVerticle.PORT, "localhost", "/status").as(BodyCodec.string()).sendBuffer(payload.toBuffer(), testContext.succeeding(resp -> {
