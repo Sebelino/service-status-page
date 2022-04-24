@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sebelino.app.repository.Repository;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -30,6 +31,10 @@ public class MainVerticle extends AbstractVerticle {
 
         vertx.createHttpServer().requestHandler(router).listen(PORT).onSuccess(server -> System.out.println("HTTP server started on port " + server.actualPort()));
 
-        vertx.deployVerticle(new PollerVerticle());
+        DeploymentOptions pollerDeploymentOptions = new DeploymentOptions()
+                .setWorker(true)
+                .setWorkerPoolSize(20)
+                .setWorkerPoolName("poller");
+        vertx.deployVerticle(new PollerVerticle(), pollerDeploymentOptions);
     }
 }
