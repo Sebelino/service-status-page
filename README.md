@@ -54,3 +54,8 @@ Run tests:
 ```bash
 ./gradlew test
 ```
+
+To clear the database:
+```bash
+docker-compose down
+```
