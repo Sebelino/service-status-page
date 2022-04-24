@@ -4,10 +4,7 @@ import com.sebelino.app.repository.Repository;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
-import io.vertx.core.shareddata.LocalMap;
-import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.web.RoutingContext;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public class Handler {
@@ -21,7 +18,7 @@ public class Handler {
 
     public void get(RoutingContext context) {
         repository.findAll().onSuccess(
-                services -> context.response().end(Json.encodePrettily(Status.of(services)))
+                services -> context.response().end(Json.encodePrettily(ServiceSet.of(services)))
         ).onFailure(
                 throwable -> context.fail(500, throwable)
         );

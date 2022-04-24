@@ -71,7 +71,7 @@ public class TestServerVerticle {
                 testContext.verify(() -> {
                     assertThat(resp.statusCode()).isEqualTo(200);
                     JsonObject body = new JsonObject(resp.body());
-                    Status status = body.mapTo(Status.class);
+                    ServiceSet status = body.mapTo(ServiceSet.class);
                     Service retrievedService = status.services.stream().filter(s -> s.name.equals(serviceName)).findAny().orElseThrow();
                     assertThat(retrievedService.url).isEqualTo(serviceUrl);
                     testContext.completeNow();
