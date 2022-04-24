@@ -19,7 +19,14 @@ public class Repository {
 
     public Future<List<Service>> findAll() {
         Future<List<ServiceEntity>> entitiesFuture = database.findAll();
-        return entitiesFuture.map(entities -> entities.stream().map(ServiceEntity::toModel).collect(Collectors.toList()));
+        Future<List<Service>> servicesFuture = entitiesFuture.map(entities -> entities.stream().map(ServiceEntity::toModel).collect(Collectors.toList()));
+        servicesFuture.map(services -> services.stream().map(this::addStatus).collect(Collectors.toList()));
+        return servicesFuture;
+    }
+
+    private Service addStatus(Service service) {
+        service.status = "UNKNOWN";
+        return service;
     }
 
     public Future<RowSet<Row>> insertService(Service service) {

@@ -9,4 +9,5 @@ public class Service {
     public String url;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "uuuu-MM-dd'T'HH:mm:ss.SSS")
     public LocalDateTime createdAt;
+    public String status;
 }
