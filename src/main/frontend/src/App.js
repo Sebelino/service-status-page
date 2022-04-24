@@ -67,7 +67,7 @@ class App extends Component {
         event.preventDefault()
 
         const addedService = {
-            name: this.state.newServiceName, url: this.state.newServiceUrl,
+            name: this.state.newServiceName, url: this.state.newServiceUrl, status: "UNKNOWN",
         }
 
         const requestOptions = {
