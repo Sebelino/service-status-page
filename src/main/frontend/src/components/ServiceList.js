@@ -24,8 +24,8 @@ export default class ServiceList extends Component {
             {this.state.services.length === 0 ? '' : <ul className="list-group my-5">
                 {this.state.services.map(item => {
                     return (<ServiceItem
-                        key={item.id}
-                        id={item.id}
+                        key={item.url}
+                        id={item.url}
                         name={item.name}
                         url={item.url}
                     />)
