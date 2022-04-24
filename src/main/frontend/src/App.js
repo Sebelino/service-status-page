@@ -7,11 +7,12 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: [], itemsToShow: "all", id: uuid(), item: '', services: [],
+            items: [], itemsToShow: "all", id: uuid(), item: '', services: [], newService: ''
         }
     }
 
     componentDidMount() {
+        console.log("componentDidMount")
         fetch("/status")
             .then(response => response.json())
             .then(payload => this.setState({services: payload.services}));
@@ -20,22 +21,22 @@ class App extends Component {
 
     handleChange = event => {
         this.setState({
-            item: event.target.value
+            newService: event.target.value
         })
     }
 
     handleSubmit = event => {
         event.preventDefault()
 
-        const newItem = {
-            id: this.state.id, title: this.state.item, completed: false
+        const addedService = {
+            name: 'HELLO'
         }
 
-        const updatedItems = [...this.state.items, newItem]
+        const updatedServices = [...this.state.services, addedService]
 
-        if (this.state.item.length > 0) {
+        if (this.state.newService.length > 0) {
             this.setState({
-                items: updatedItems, id: uuid(), item: ''
+                services: updatedServices, id: uuid()
             })
         }
     }
@@ -46,33 +47,6 @@ class App extends Component {
         });
     };
 
-    handleDoneTask = (id, completed) => {
-        const filteredItems = this.state.items.map(item => {
-            item.id === id && (item.completed = !item.completed)
-            return item
-        })
-
-        this.setState({
-            items: filteredItems,
-        })
-    }
-
-    handleDelete = id => {
-        const filteredItems = this.state.items.filter(item => item.id !== id)
-
-        this.setState({
-            items: filteredItems
-        })
-    }
-
-    handleDeleteDoneTasks = () => {
-        const filteredItems = this.state.items.filter(item => item.completed === false)
-
-        this.setState({
-            items: filteredItems
-        })
-    }
-
     clearList = () => {
         this.setState({
             items: []
@@ -80,35 +54,23 @@ class App extends Component {
     }
 
     render() {
-        let items = []
-        if (this.state.itemsToShow === "all") {
-            items = this.state.items;
-        } else if (this.state.itemsToShow === "todo") {
-            items = this.state.items.filter(item => !item.completed);
-        } else if (this.state.itemsToShow === "done") {
-            items = this.state.items.filter(item => item.completed);
-        }
         return (<div className="container">
             <div className="row">
                 <div className="col-10 col-md-8 mx-auto mt-4">
                     <h3 className="text-capitalize text-center">Service Status Page</h3>
                     <ServiceInput
-                        item={this.state.item}
+                        item={this.state.newService}
                         handleChange={this.handleChange}
                         handleSubmit={this.handleSubmit}
                     />
                     <ServiceList
                         services={this.state.services}
-                        items={items}
-                        filterDoneTasks={this.filterDoneTasks}
                         clearList={this.clearList}
-                        handleDelete={this.handleDelete}
-                        handleDoneTask={this.handleDoneTask}
-                        handleDeleteDoneTasks={this.handleDeleteDoneTasks}
                         updateTodosToShow={this.updateTodosToShow}
                     />
                 </div>
             </div>
+            <div>newService: [{this.state.newService}]</div>
         </div>);
     }
 }
