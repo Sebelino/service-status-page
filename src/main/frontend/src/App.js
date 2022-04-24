@@ -44,6 +44,9 @@ class App extends Component {
         this.setState({
             pollingCount: this.state.pollingCount + 1
         })
+        fetch("/status")
+            .then(response => response.json())
+            .then(payload => this.setState({services: payload.services}));
     }
 
     handleServiceNameChange = event => {
