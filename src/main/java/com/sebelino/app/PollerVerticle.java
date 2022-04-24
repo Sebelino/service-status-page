@@ -15,7 +15,7 @@ public class PollerVerticle extends AbstractVerticle {
     public void start() {
         client = WebClient.create(vertx);
 
-        vertx.setPeriodic(3000, timerId -> handle());
+        vertx.setPeriodic(4000, timerId -> handle());
     }
 
     private void handle() {
