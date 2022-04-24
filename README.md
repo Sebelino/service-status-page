@@ -1,8 +1,12 @@
 # Service Status Page
 
+This service continuously polls a set of web resources and determines whether each resource is currently available or down.
+The results are displayed in a React frontend app, but can also be retrieved in JSON format by HTTP REST.
+New services can be added either through the frontend app or by making a POST call directly to the backend application.
+
 ## Usage
 
-Run MySQL:
+Run the MySQL database:
 
 ```bash
 docker-compose up
