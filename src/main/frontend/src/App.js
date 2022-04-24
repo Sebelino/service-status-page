@@ -28,6 +28,7 @@ class App extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log("componentDidUpdate")
         if (prevState.delay !== this.state.delay) {
             clearInterval(this.interval)
             this.interval = setInterval(this.tick, this.state.delay)
@@ -35,6 +36,7 @@ class App extends Component {
     }
 
     componentWillUnmount() {
+        console.log("componentWillUnmount")
         clearInterval(this.interval)
     }
 
