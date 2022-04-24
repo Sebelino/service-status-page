@@ -13,7 +13,7 @@ export default class ServiceItem extends Component {
                     <span
                         className={`mx-2 ${status === 'OK' ? 'text-success' : 'text-secondary'}`}
                     >
-                        <i className={`${status === 'OK' ? 'far fa-check-square' : 'far fa-square'}`}/>
+                        <i className={`${status === 'OK' ? 'fas fa-check' : 'far fa-square'}`}/>
                     </span>
             </div>
         </li>)
