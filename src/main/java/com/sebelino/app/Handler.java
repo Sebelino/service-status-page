@@ -45,7 +45,7 @@ public class Handler {
             context.response().setStatusCode(400).end(Json.encode(payload));
             return;
         }
-        System.out.printf("Service: %s %s%n", service.name, service.url);
+        System.out.printf("Added service: %s %s%n", service.name, service.url);
         repository.insertService(service)
                 .onSuccess(
                         rows -> context.response().setStatusCode(201).end()
