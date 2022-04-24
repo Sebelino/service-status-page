@@ -3,8 +3,6 @@ package com.sebelino.app.repository;
 import com.sebelino.app.Service;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
-import io.vertx.core.shareddata.LocalMap;
-import io.vertx.core.shareddata.SharedData;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
@@ -14,11 +12,11 @@ import java.util.stream.Collectors;
 public class Repository {
 
     private final Database database;
-    private final SharedData sharedData;
+    private final EmbeddedStorage embeddedStorage;
 
     public Repository(Vertx vertx) {
         database = new Database(vertx);
-        sharedData = vertx.sharedData();
+        embeddedStorage = new EmbeddedStorage(vertx.sharedData());
     }
 
     public Future<List<Service>> findAll() {
@@ -29,12 +27,11 @@ public class Repository {
     }
 
     private Service addStatus(Service service) {
-        LocalMap<String, String> serviceStatuses = sharedData.getLocalMap("service_statuses");
-        if (serviceStatuses.containsKey(service.url)) {
-            service.status = serviceStatuses.get(service.url);
+        if (embeddedStorage.containsKey(service.url)) {
+            service.status = embeddedStorage.get(service.url);
         } else {
             service.status = "UNKNOWN";
-            serviceStatuses.put(service.url, service.status);
+            embeddedStorage.put(service.url, service.status);
         }
         return service;
     }
