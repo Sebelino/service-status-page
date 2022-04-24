@@ -1,6 +1,7 @@
 package com.sebelino.app;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.VertxException;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.shareddata.LocalMap;
 import io.vertx.core.shareddata.SharedData;
@@ -15,10 +16,10 @@ public class PollerVerticle extends AbstractVerticle {
     public void start() {
         client = WebClient.create(vertx);
 
-        vertx.setPeriodic(4000, timerId -> handle());
+        vertx.setPeriodic(4000, timerId -> pollAllServices());
     }
 
-    private void handle() {
+    private void pollAllServices() {
         SharedData sharedServiceStatuses = vertx.sharedData();
         LocalMap<String, String> serviceStatuses = sharedServiceStatuses.getLocalMap("service_statuses");
         System.out.printf("Polling %d services...%n", serviceStatuses.size());
@@ -28,13 +29,18 @@ public class PollerVerticle extends AbstractVerticle {
     }
 
     private void pollService(String url, LocalMap<String, String> serviceStatuses) {
-        client.requestAbs(HttpMethod.GET, url)
-                .as(BodyCodec.string()).send(response -> {
-                    if (response.succeeded()) {
-                        serviceStatuses.put(url, "OK");
-                    } else {
-                        serviceStatuses.put(url, "FAIL");
-                    }
-                });
+        try {
+            client.requestAbs(HttpMethod.GET, url)
+                    .as(BodyCodec.string()).send(response -> {
+                        if (response.succeeded()) {
+                            serviceStatuses.put(url, "OK");
+                        } else {
+                            serviceStatuses.put(url, "FAIL");
+                        }
+                    });
+        } catch (VertxException e) {
+            // Likely MalformedUrlException
+            serviceStatuses.put(url, "FAIL");
+        }
     }
 }
