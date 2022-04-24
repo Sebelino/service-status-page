@@ -1,15 +1,12 @@
 package com.sebelino.app;
 
 import com.sebelino.app.repository.Repository;
-import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import org.apache.commons.lang3.StringUtils;
 
 public class Handler {
-
-    Vertx vertx;
     Repository repository;
 
     public Handler(Repository repository) {
