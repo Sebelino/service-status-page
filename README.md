@@ -45,6 +45,7 @@ mysql -h 127.0.0.1 -P 3309 -psecret -u dev dev
 
 In a separate terminal, start the frontend:
 ```bash
+npm install --prefix src/main/frontend
 npm start --prefix src/main/frontend
 ```
 
