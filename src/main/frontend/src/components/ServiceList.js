@@ -17,9 +17,9 @@ export default class ServiceList extends Component {
 
     render() {
         return (<Fragment>
-            <h3 className="text-center">
-                ServiceList
-            </h3>
+            <h4 className="text-center">
+                Service List
+            </h4>
 
             {this.state.services.length === 0 ? '' : <ul className="list-group my-5">
                 {this.state.services.map(item => {
