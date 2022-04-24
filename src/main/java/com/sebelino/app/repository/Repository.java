@@ -7,6 +7,7 @@ import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Repository {
 
@@ -17,10 +18,15 @@ public class Repository {
     }
 
     public Future<List<Service>> findAll() {
-        return database.findAll();
+        Future<List<ServiceEntity>> entitiesFuture = database.findAll();
+        return entitiesFuture.map(entities -> entities.stream().map(ServiceEntity::toModel).collect(Collectors.toList()));
     }
 
     public Future<RowSet<Row>> insertService(Service service) {
-        return database.insertService(service);
+        ServiceEntity entity = new ServiceEntity();
+        entity.name = service.name;
+        entity.url = service.url;
+        entity.createdAt = service.createdAt;
+        return database.insertService(entity);
     }
 }

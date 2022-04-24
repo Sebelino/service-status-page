@@ -1,6 +1,5 @@
 package com.sebelino.app.repository;
 
-import com.sebelino.app.Service;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.mysqlclient.MySQLConnectOptions;
@@ -25,19 +24,22 @@ class Database {
         pool = MySQLPool.pool(vertx, connectOptions, poolOptions);
     }
 
-    private static final Function<Row, Service> mapper = row -> {
-        Service service = new Service();
+    private static final Function<Row, ServiceEntity> mapper = row -> {
+        ServiceEntity service = new ServiceEntity();
         service.name = row.getString("name");
         service.url = row.getString("url");
         service.createdAt = row.getLocalDateTime("created_at");
         return service;
     };
 
-    public Future<List<Service>> findAll() {
-        return pool.query("SELECT * FROM services").execute().map(rs -> StreamSupport.stream(rs.spliterator(), false).map(mapper).collect(Collectors.toList()));
+    public Future<List<ServiceEntity>> findAll() {
+        return pool
+                .query("SELECT * FROM services")
+                .execute()
+                .map(rs -> StreamSupport.stream(rs.spliterator(), false).map(mapper).collect(Collectors.toList()));
     }
 
-    public Future<RowSet<Row>> insertService(Service service) {
+    public Future<RowSet<Row>> insertService(ServiceEntity service) {
         return pool.preparedQuery("INSERT INTO services(name, url) VALUES (?, ?)").execute(Tuple.of(service.name, service.url));
     }
 }
