@@ -12,21 +12,29 @@ public class PollerVerticle extends AbstractVerticle {
 
     @Override
     public void start() {
-        SharedData sharedServiceStatuses = vertx.sharedData();
-        LocalMap<String, String> serviceStatuses = sharedServiceStatuses.getLocalMap("service_statuses");
-
         client = WebClient.create(vertx);
 
-        vertx.setPeriodic(3000, r -> {
-            String serviceHostname = "google.com";
-            client.get(80, serviceHostname, "/")
-                    .as(BodyCodec.string()).send(response -> {
-                        if (response.succeeded()) {
-                            System.out.println("Website is up");
-                        } else {
-                            System.out.println("Connection refused");
-                        }
-                    });
-        });
+        vertx.setPeriodic(3000, timerId -> handle());
+    }
+
+    private void handle() {
+        SharedData sharedServiceStatuses = vertx.sharedData();
+        LocalMap<String, String> serviceStatuses = sharedServiceStatuses.getLocalMap("service_statuses");
+        System.out.printf("Polling %d services...%n", serviceStatuses.size());
+
+        serviceStatuses.keySet().parallelStream().forEach(url -> pollService(url, serviceStatuses));
+
+    }
+
+    private void pollService(String url, LocalMap<String, String> serviceStatuses) {
+        System.out.println("Polling url: " + url);
+        client.get(80, url, "/")
+                .as(BodyCodec.string()).send(response -> {
+                    if (response.succeeded()) {
+                        System.out.println("Website is up");
+                    } else {
+                        System.out.println("Connection refused");
+                    }
+                });
     }
 }
