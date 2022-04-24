@@ -7,17 +7,42 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: [], itemsToShow: "all", id: uuid(), item: '', services: [], newServiceName: '', newServiceUrl: ''
+            items: [],
+            itemsToShow: "all",
+            id: uuid(),
+            item: '',
+            services: [],
+            newServiceName: '',
+            newServiceUrl: '',
+            pollingCount: 0,
+            delay: 3000,
         }
     }
 
     componentDidMount() {
         console.log("componentDidMount")
+        this.interval = setInterval(this.tick, this.state.delay)
         fetch("/status")
             .then(response => response.json())
             .then(payload => this.setState({services: payload.services}));
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.delay !== this.state.delay) {
+            clearInterval(this.interval)
+            this.interval = setInterval(this.tick, this.state.delay)
+        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
+    tick = () => {
+        this.setState({
+            pollingCount: this.state.pollingCount + 1
+        })
+    }
 
     handleServiceNameChange = event => {
         this.setState({
@@ -86,6 +111,7 @@ class App extends Component {
             </div>
             <div>newServiceName: [{this.state.newServiceName}]</div>
             <div>newServiceUrl: [{this.state.newServiceUrl}]</div>
+            <div>Polling count: [{this.state.pollingCount}]</div>
         </div>);
     }
 }
