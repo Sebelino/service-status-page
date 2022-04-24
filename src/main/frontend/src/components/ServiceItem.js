@@ -12,7 +12,6 @@ export default class ServiceItem extends Component {
             <div className="status-icon">
                     <span
                         className={`mx-2 ${status === 'OK' ? 'text-success' : 'text-secondary'}`}
-                        onClick={() => handleDoneTask(id)}
                     >
                         <i className={`${status === 'OK' ? 'far fa-check-square' : 'far fa-square'}`}/>
                     </span>
