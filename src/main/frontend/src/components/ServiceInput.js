@@ -16,7 +16,14 @@ export default class ServiceInput extends Component {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="New service"
+                        placeholder="Service name"
+                        value={item}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="URL"
                         value={item}
                         onChange={handleChange}
                     />
