@@ -24,10 +24,13 @@ public class Handler {
         SharedData sharedServiceStatuses = vertx.sharedData();
         LocalMap<String, String> serviceStatuses = sharedServiceStatuses.getLocalMap("service_statuses");
 
-        serviceStatuses.put("hoy", "FROM SERVERVERTICLE");
-
         repository.findAll().onSuccess(
-                services -> context.response().end(Json.encodePrettily(Status.of(services)))
+                services -> {
+                    for (Service service : services) {
+                        serviceStatuses.put(service.url, "UNKNOWN");
+                    }
+                    context.response().end(Json.encodePrettily(Status.of(services)));
+                }
         ).onFailure(
                 throwable -> context.fail(500, throwable)
         );
