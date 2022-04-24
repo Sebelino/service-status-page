@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 export default class ServiceInput extends Component {
     render() {
-        const {item, handleChange, handleSubmit, editItem} = this.props
+        const {item, handleChange, handleSubmit} = this.props
 
         return (<div className="card card-body my-3">
             <form onSubmit={handleSubmit}>
@@ -24,9 +24,9 @@ export default class ServiceInput extends Component {
 
                 <button
                     type="submit"
-                    className={`btn btn-block mt-3 ${editItem ? 'btn-success' : 'btn-info'}`}
+                    className={`btn btn-block mt-3 btn-info`}
                 >
-                    {editItem ? 'Edit service' : 'Add new service'}
+                    Add new service
                 </button>
             </form>
         </div>)

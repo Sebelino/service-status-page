@@ -7,7 +7,7 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: [], itemsToShow: "all", id: uuid(), item: '', editItem: false,
+            items: [], itemsToShow: "all", id: uuid(), item: '',
         }
     }
 
@@ -28,7 +28,7 @@ class App extends Component {
 
         if (this.state.item.length > 0) {
             this.setState({
-                items: updatedItems, id: uuid(), item: '', editItem: false
+                items: updatedItems, id: uuid(), item: ''
             })
         }
     }
@@ -64,7 +64,7 @@ class App extends Component {
         const selectedItem = this.state.items.find(item => item.id === id)
 
         this.setState({
-            items: filteredItems, id: id, item: selectedItem.title, editItem: true
+            items: filteredItems, id: id, item: selectedItem.title
         })
     }
 
