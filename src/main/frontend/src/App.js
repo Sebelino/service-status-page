@@ -27,7 +27,7 @@ class App extends Component {
             .then(payload => this.setState({services: payload.services}));
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("componentDidUpdate")
         if (prevState.delay !== this.state.delay) {
             clearInterval(this.interval)
