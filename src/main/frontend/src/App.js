@@ -94,7 +94,7 @@ class App extends Component {
         return (<div className="container">
             <div className="row">
                 <div className="col-10 col-md-8 mx-auto mt-4">
-                    <h3 className="text-capitalize text-center">Hoy</h3>
+                    <h3 className="text-capitalize text-center">Service Status Page</h3>
                     <ServiceInput
                         item={this.state.item}
                         handleChange={this.handleChange}
