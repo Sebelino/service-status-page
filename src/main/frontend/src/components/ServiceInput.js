@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 export default class ServiceInput extends Component {
     render() {
-        const {item, handleChange, handleSubmit} = this.props
+        const {item, handleServiceNameChange, handleSubmit} = this.props
 
         return (<div className="card card-body my-3">
             <form onSubmit={handleSubmit}>
@@ -18,14 +18,14 @@ export default class ServiceInput extends Component {
                         className="form-control"
                         placeholder="Service name"
                         value={item}
-                        onChange={handleChange}
+                        onChange={handleServiceNameChange}
                     />
                     <input
                         type="text"
                         className="form-control"
                         placeholder="URL"
                         value={item}
-                        onChange={handleChange}
+                        onChange={handleServiceNameChange}
                     />
                 </div>
 

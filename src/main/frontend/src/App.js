@@ -19,7 +19,7 @@ class App extends Component {
     }
 
 
-    handleChange = event => {
+    handleServiceNameChange = event => {
         this.setState({
             newServiceName: event.target.value
         })
@@ -68,7 +68,7 @@ class App extends Component {
                     <h3 className="text-capitalize text-center">Service Status Page</h3>
                     <ServiceInput
                         item={this.state.newServiceName}
-                        handleChange={this.handleChange}
+                        handleServiceNameChange={this.handleServiceNameChange}
                         handleSubmit={this.handleSubmit}
                     />
                     <ServiceList
