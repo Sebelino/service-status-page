@@ -33,8 +33,10 @@ public class PollerVerticle extends AbstractVerticle {
                 .as(BodyCodec.string()).send(response -> {
                     if (response.succeeded()) {
                         System.out.println("Website is up");
+                        serviceStatuses.put(url, "OK");
                     } else {
                         System.out.println("Connection refused");
+                        serviceStatuses.put(url, "FAIL");
                     }
                 });
     }

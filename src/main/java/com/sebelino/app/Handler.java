@@ -15,22 +15,13 @@ public class Handler {
     Vertx vertx;
     Repository repository;
 
-    public Handler(Vertx vertx, Repository repository) {
-        this.vertx = vertx;
+    public Handler(Repository repository) {
         this.repository = repository;
     }
 
     public void get(RoutingContext context) {
-        SharedData sharedServiceStatuses = vertx.sharedData();
-        LocalMap<String, String> serviceStatuses = sharedServiceStatuses.getLocalMap("service_statuses");
-
         repository.findAll().onSuccess(
-                services -> {
-                    for (Service service : services) {
-                        serviceStatuses.put(service.url, "UNKNOWN");
-                    }
-                    context.response().end(Json.encodePrettily(Status.of(services)));
-                }
+                services -> context.response().end(Json.encodePrettily(Status.of(services)))
         ).onFailure(
                 throwable -> context.fail(500, throwable)
         );

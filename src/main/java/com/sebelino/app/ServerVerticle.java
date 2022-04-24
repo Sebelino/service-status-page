@@ -24,7 +24,7 @@ public class ServerVerticle extends AbstractVerticle {
 
         Repository repository = new Repository(vertx);
 
-        Handler handler = new Handler(vertx, repository);
+        Handler handler = new Handler(repository);
 
         router.get("/status").handler(handler::get);
         router.post("/status").handler(BodyHandler.create()).handler(handler::post);
