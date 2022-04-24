@@ -9,12 +9,12 @@ export default class ServiceItem extends Component {
             <h6 className={`mt-1 mb-0 align-middle ${completed ? 'completed-task' : ''}`}>{name}</h6>
             <h6 className={`mt-1 mb-0 align-middle ${completed ? 'completed-task' : ''}`}>{url}</h6>
             <h6 className={`mt-1 mb-0 align-middle ${completed ? 'completed-task' : ''}`}>{status}</h6>
-            <div className="todo-icon">
+            <div className="status-icon">
                     <span
-                        className={`mx-2 ${completed ? 'text-success' : 'text-secondary'}`}
+                        className={`mx-2 ${status === 'OK' ? 'text-success' : 'text-secondary'}`}
                         onClick={() => handleDoneTask(id)}
                     >
-                        <i className={`${completed ? 'far fa-check-square' : 'far fa-square'}`}/>
+                        <i className={`${status === 'OK' ? 'far fa-check-square' : 'far fa-square'}`}/>
                     </span>
             </div>
         </li>)
