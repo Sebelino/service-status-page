@@ -31,7 +31,7 @@ class App extends Component {
         const randomId = uuid()
 
         const addedService = {
-            name: randomId,
+            name: this.state.newServiceName,
             url: "https://" + randomId + ".com"
         }
 
