@@ -85,18 +85,6 @@ class App extends Component {
         }
     }
 
-    updateTodosToShow = string => {
-        this.setState({
-            itemsToShow: string
-        });
-    };
-
-    clearList = () => {
-        this.setState({
-            items: []
-        })
-    }
-
     render() {
         return (<div className="container">
             <div className="row">
@@ -111,8 +99,6 @@ class App extends Component {
                     />
                     <ServiceList
                         services={this.state.services}
-                        clearList={this.clearList}
-                        updateTodosToShow={this.updateTodosToShow}
                     />
                 </div>
             </div>
