@@ -58,16 +58,6 @@ class App extends Component {
         })
     }
 
-    handleEdit = id => {
-        const filteredItems = this.state.items.filter(item => item.id !== id)
-
-        const selectedItem = this.state.items.find(item => item.id === id)
-
-        this.setState({
-            items: filteredItems, id: id, item: selectedItem.title
-        })
-    }
-
     handleDeleteDoneTasks = () => {
         const filteredItems = this.state.items.filter(item => item.completed === false)
 
@@ -105,7 +95,6 @@ class App extends Component {
                         filterDoneTasks={this.filterDoneTasks}
                         clearList={this.clearList}
                         handleDelete={this.handleDelete}
-                        handleEdit={this.handleEdit}
                         handleDoneTask={this.handleDoneTask}
                         handleDeleteDoneTasks={this.handleDeleteDoneTasks}
                         updateTodosToShow={this.updateTodosToShow}
