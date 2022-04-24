@@ -12,7 +12,7 @@ Run the MySQL database:
 docker-compose up
 ```
 
-Run the application:
+In a separate terminal, run the application:
 
 ```bash
 ./gradlew run
@@ -36,7 +36,7 @@ Inspect the database:
 mysql -h 127.0.0.1 -P 3309 -psecret -u dev dev
 ```
 
-Start the frontend:
+In a separate terminal, start the frontend:
 ```bash
 npm start --prefix src/main/frontend
 ```
