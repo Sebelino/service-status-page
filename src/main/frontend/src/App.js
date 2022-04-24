@@ -102,9 +102,6 @@ class App extends Component {
                     />
                 </div>
             </div>
-            <div>newServiceName: [{this.state.newServiceName}]</div>
-            <div>newServiceUrl: [{this.state.newServiceUrl}]</div>
-            <div>Polling count: [{this.state.pollingCount}]</div>
         </div>);
     }
 }
