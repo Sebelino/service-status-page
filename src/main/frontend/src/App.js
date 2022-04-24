@@ -35,6 +35,14 @@ class App extends Component {
             url: "https://" + randomId + ".com"
         }
 
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(addedService)
+        };
+        fetch('/status', requestOptions)
+            .then(response => console.log("POST /status"));
+
         const updatedServices = [...this.state.services, addedService]
 
         if (this.state.newService.length > 0) {
